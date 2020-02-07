@@ -8,6 +8,7 @@ public class BankAccount {
     private double balance;
     private String password;
     private String acctId;
+    private boolean isFrozen;
 
 
 
@@ -25,6 +26,7 @@ public class BankAccount {
                 this.email = email;
                 this.balance = startingBalance;
                 this.password = password;
+                this.isFrozen = false;
             }
             else{
                 throw new IllegalArgumentException("starting Balance of " + startingBalance + "is an invalid amount to add");
@@ -107,5 +109,17 @@ public class BankAccount {
 
     public String getPassword() {
         return password;
+    }
+
+    public void freeze(){
+        isFrozen = true;
+    }
+
+    public void unfreeze(){
+        isFrozen = false;
+    }
+
+    public boolean getIsFrozen(){
+        return isFrozen;
     }
 }
