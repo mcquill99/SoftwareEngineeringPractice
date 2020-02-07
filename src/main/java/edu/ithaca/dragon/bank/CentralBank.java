@@ -109,11 +109,11 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
     }
 
     public void freezeAccount(String acctId) {
-
+        accountMap.get(acctId).freeze();
     }
 
     public void unfreezeAcct(String acctId) {
-
+        accountMap.get(acctId).unfreeze();
     }
 
 }
