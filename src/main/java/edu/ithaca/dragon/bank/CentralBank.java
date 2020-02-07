@@ -10,9 +10,7 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
 
 
     public Map<String, BankAccount>accountMap = new HashMap<>();
-
-
-
+    public boolean isFrozen;
 
 
     public boolean confirmCredentials(String acctId, String password){
@@ -115,5 +113,11 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
     public void unfreezeAcct(String acctId) {
         accountMap.get(acctId).unfreeze();
     }
+
+    public boolean getIsFrozen(String acctId){
+        return accountMap.get(acctId).getIsFrozen();
+    }
+
+
 
 }

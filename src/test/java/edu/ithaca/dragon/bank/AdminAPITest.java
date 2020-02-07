@@ -9,51 +9,50 @@ public class AdminAPITest {
     @Test
     void freezeTest(){
         CentralBank bankAccount = new CentralBank();
-        CentralBank bankAccount2 = new CentralBank();
-        CentralBank bankAccount3 = new CentralBank();
         bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500);
-        bankAccount2.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
-        bankAccount3.createAccount("test123", "a@b.com", "testpass", 1000);
+        bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
+        bankAccount.createAccount("test123", "a@b.com", "testpass", 1000);
 
-        AssertEquals(false, bankAccount.getIsFrozen);
-        AssertEquals(false, bankAccount2.getIsFrozen);
-        AssertEquals(false, bankAccount3.getIsFrozen);
+        assertEquals(false, bankAccount.getIsFrozen("11212"));
+        assertEquals(false, bankAccount.getIsFrozen("11BFWGG"));
+        assertEquals(false, bankAccount.getIsFrozen("test123"));
 
-        bankAccount.freeze();
-        bankAccount2.freeze();
-        bankAccount3.freeze();
+        bankAccount.freezeAccount("11212");
+        bankAccount.freezeAccount("11BFWGG");
+        bankAccount.freezeAccount("test123");
 
-        AssertEquals(true, bankAccount.getIsFrozen);
-        AssertEquals(true, bankAccount2.getIsFrozen);
-        AssertEquals(true, bankAccount3.getIsFrozen);
+        assertEquals(true, bankAccount.getIsFrozen("11212"));
+        assertEquals(true, bankAccount.getIsFrozen("11BFWGG"));
+        assertEquals(true, bankAccount.getIsFrozen("test123"));
 
         //next adding tests to see if when the account is frozen that deposit and other functions do not work
 
     }
 
+    @Test
     void unFreezeTest(){
         CentralBank bankAccount = new CentralBank();
-        CentralBank bankAccount2 = new CentralBank();
-        CentralBank bankAccount3 = new CentralBank();
+
         bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500);
-        bankAccount2.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
-        bankAccount3.createAccount("test123", "a@b.com", "testpass", 1000);
+        bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
+        bankAccount.createAccount("test123", "a@b.com", "testpass", 1000);
 
-        bankAccount.freeze();
-        bankAccount2.freeze();
-        bankAccount3.freeze();
+        bankAccount.freezeAccount("11212");
+        bankAccount.freezeAccount("11BFWGG");
+        bankAccount.freezeAccount("test123");
 
-        AssertEquals(true, bankAccount.getIsFrozen);
-        AssertEquals(true, bankAccount2.getIsFrozen);
-        AssertEquals(true, bankAccount3.getIsFrozen);
+        assertEquals(true, bankAccount.getIsFrozen("11212"));
+        assertEquals(true, bankAccount.getIsFrozen("11BFWGG"));
+        assertEquals(true, bankAccount.getIsFrozen("test123"));
 
-        bankAccount.unreeze();
-        bankAccount2.unfreeze();
-        bankAccount3.unfreeze();
+        bankAccount.unfreezeAcct("11212");
+        bankAccount.unfreezeAcct("11BFWGG");
+        bankAccount.unfreezeAcct("test123");
 
-        AssertEquals(false, bankAccount.getIsFrozen);
-        AssertEquals(false, bankAccount2.getIsFrozen);
-        AssertEquals(false, bankAccount3.getIsFrozen);
+        assertEquals(false, bankAccount.getIsFrozen("11212"));
+        assertEquals(false, bankAccount.getIsFrozen("11BFWGG"));
+        assertEquals(false, bankAccount.getIsFrozen("test123"));
+
     }
 
 
