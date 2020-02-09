@@ -63,14 +63,14 @@ public class AdminAPITest {
         bank.createAccount("123","a@b.com", "testPass", 0.99);
         assertEquals(0.99, bank.calcTotalAssets());
 
-        bank.createAccount("456","a@b.com", "testPass", 1000.57);
-        assertEquals(1500.57, bank.calcTotalAssets());
+        bank.createAccount("456","a@b.com", "testPass", 1500.57);
+        assertEquals(1501.56, bank.calcTotalAssets());
 
         bank.createAccount("789","a@b.com", "testPass", 100000.99);
-        assertEquals(101501.56, bank.calcTotalAssets());
+        assertEquals(101502.55, bank.calcTotalAssets());
 
         //deposit
-        bank.deposit("123", 99.44);
+        bank.deposit("123", 97.45);
         assertEquals(101600, bank.calcTotalAssets());
 
         bank.deposit("456", 1400.50);

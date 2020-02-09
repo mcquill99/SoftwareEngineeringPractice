@@ -99,7 +99,13 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
     //------------------ AdminAPI methods -------------------------//
 
     public double calcTotalAssets() {
-        return 0;
+        double total = 0;
+
+        for(BankAccount account : accountMap.values()){
+            total = total + account.getBalance();
+        }
+
+        return total;
     }
 
     public Collection<String> findAcctIdsWithSuspiciousActivity() {
