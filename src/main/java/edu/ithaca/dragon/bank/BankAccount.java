@@ -1,5 +1,6 @@
 package edu.ithaca.dragon.bank;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class BankAccount {
@@ -9,6 +10,7 @@ public class BankAccount {
     private String password;
     private String acctId;
     private boolean isFrozen;
+    private ArrayList<String> transactionHistory = new ArrayList<String>();
 
 
 
@@ -56,6 +58,8 @@ public class BankAccount {
         }
         if (balance >= amount && amount >= 0) {
             balance -= amount;
+
+            transactionHistory.add("Withdrew $" + amount);
         }
         else{
             throw new InsufficientFundsException("Amount requested is more than in your account by " + (amount - balance));
@@ -72,6 +76,8 @@ public class BankAccount {
             throw new IllegalArgumentException("Amount must have 2 or less decimal places and must be positive");
         }
         balance += amount;
+
+        transactionHistory.add("Deposited $" + amount);
     }
 
     /**
@@ -85,6 +91,12 @@ public class BankAccount {
             }
             this.withdraw(amount);
             toTransfer.deposit(amount);
+
+            transactionHistory.remove(transactionHistory.size()-1);
+            toTransfer.transactionHistory.remove(toTransfer.transactionHistory.size()-1);
+
+            transactionHistory.add("Transferred $" + amount + " to Account " + toTransfer.acctId);
+            toTransfer.transactionHistory.add("Received $" + amount + " from Account " + acctId);
     }
 
     /**
@@ -103,23 +115,56 @@ public class BankAccount {
         return true;
     }
 
+    /**
+     * @post checks if an email is valid based on specific guidelines
+     * @return true if email is valid, false if not
+     */
     public static boolean isEmailValid(String email){
         return email.matches("(\\w)+((_|\\.|-)+\\w+)*@(\\w)+((-)?\\w+)*\\.\\w{2,}$");
     }
 
+    /**
+     * a function to return the password of the account
+     * @return account password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * freezes the account, preventing transactions
+     */
     public void freeze(){
         isFrozen = true;
     }
 
+    /**
+     * unfreezes the account
+     */
     public void unfreeze(){
         isFrozen = false;
     }
 
+    /**
+     * returns the current frozen state of the account
+     * @return isFrozen
+     */
     public boolean getIsFrozen(){
         return isFrozen;
+    }
+
+    /**
+     * returns all transactions that have occurred on the account
+     * This includes deposits, withdraws, and transfers
+     * @return a string of all transactions
+     */
+    public String transactionHistory(){
+        if(transactionHistory.size() == 0){
+            return "";
+        }
+
+        String transactionString  = transactionHistory.toString();
+        return(transactionString.substring(1, transactionString.length()-1)); //removes brackets
+
     }
 }

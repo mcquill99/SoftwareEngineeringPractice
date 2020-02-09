@@ -136,21 +136,21 @@ public class BasicAPITest {
         assertEquals("", bank.transactionHistory("123"));
         //deposit
         bank.deposit("123", 1);
-        assertEquals("Deposited $1", bank.transactionHistory("123"));
+        assertEquals("Deposited $1.0", bank.transactionHistory("123"));
         bank.deposit("123", 785.68);
-        assertEquals("Deposited $1, Deposited $785.68", bank.transactionHistory("123"));
+        assertEquals("Deposited $1.0, Deposited $785.68", bank.transactionHistory("123"));
         //withdraw
         bank.withdraw("123", 20);
-        assertEquals("Deposited $1, Deposited $785.68, Withdrew $20", bank.transactionHistory("123"));
+        assertEquals("Deposited $1.0, Deposited $785.68, Withdrew $20.0", bank.transactionHistory("123"));
         bank.withdraw("123", 583.13);
-        assertEquals("Deposited $1, Deposited $785.68, Withdrew $20, Withdrew $583.13", bank.transactionHistory("123"));
+        assertEquals("Deposited $1.0, Deposited $785.68, Withdrew $20.0, Withdrew $583.13", bank.transactionHistory("123"));
         //transfers
         bank.transfer("123","456", 10);
-        assertEquals("Deposited $1, Deposited $785.68, Withdrew $20, Withdrew $583.13, Transferred $10 to Account 456", bank.transactionHistory("123"));
-        bank.transfer("123","456", 10);
-        assertEquals("Deposited $1, Deposited $785.68, Withdrew $20, Withdrew $583.13, Transferred $10 to Account 456", bank.transactionHistory("123"));
+        assertEquals("Deposited $1.0, Deposited $785.68, Withdrew $20.0, Withdrew $583.13, Transferred $10.0 to Account 456", bank.transactionHistory("123"));
         bank.transfer("456","123", 100.13);
-        assertEquals("Deposited $1, Deposited $785.68, Withdrew $20, Withdrew $583.13, Transferred $10 to Account 456, Received $100.13 from Account 456", bank.transactionHistory("123"));
+        assertEquals("Deposited $1.0, Deposited $785.68, Withdrew $20.0, Withdrew $583.13, Transferred $10.0 to Account 456, Received $100.13 from Account 456", bank.transactionHistory("123"));
+
+        assertEquals("Received $10.0 from Account 123, Transferred $100.13 to Account 123", bank.transactionHistory("456"));
 
     }
 
