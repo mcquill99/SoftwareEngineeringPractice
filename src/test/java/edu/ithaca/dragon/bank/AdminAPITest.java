@@ -13,9 +13,9 @@ public class AdminAPITest {
         bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
         bankAccount.createAccount("test123", "a@b.com", "testpass", 1000);
 
-        assertEquals(false, bankAccount.accountMap.get("11212").getIsFrozen());
-        assertEquals(false, bankAccount.accountMap.get("11BFWGG").getIsFrozen());
-        assertEquals(false, bankAccount.accountMap.get("test123").getIsFrozen());
+        assertEquals(false, bankAccount.getIsFrozen("11212"));
+        assertEquals(false, bankAccount.getIsFrozen("11BFWGG"));
+        assertEquals(false, bankAccount.getIsFrozen("test123"));
 
 //        bankAccount.accountMap.get("11212").freeze();
 //        bankAccount.accountMap.get("11BFWGG").freeze();
