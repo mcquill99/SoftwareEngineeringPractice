@@ -83,5 +83,18 @@ public class AdminAPITest {
         assertEquals(99999.52, bank.calcTotalAssets());
     }
 
+    @Test
+    void suspiciousActivityTest(){
+
+        //deposits of greater than 100,000
+
+        //deposits increasing in size
+
+        //more than 10 depsits or withdrawls with in short period of time (one week)
+
+        //withdraws greater than 50,000
+
+    }
+
 
 }
