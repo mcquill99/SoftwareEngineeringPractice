@@ -85,14 +85,39 @@ public class AdminAPITest {
 
     @Test
     void suspiciousActivityTest(){
+        CentralBank bank = new CentralBank();
+        bankAccount.createAccount("11212", "a@b.com", "testingPassword", 50000);
+        bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 100000);
+        bankAccount.createAccount("test123", "a@b.com", "testpass", 100000);
 
-        //deposits of greater than 100,000
+        //test empty map of suspicious accounts
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity().isEmpty());
 
-        //deposits increasing in size
+        //non suspicious deposits
+        bank.deposit("11212",49999);
+        bank.deposit("11BFWGG", 10);
+        bank.deposit("11BFWGG", 10);
+        bank.deposit("11BFWGG", 10);
+        bank.deposit("test123", 1234);
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity().isEmpty());
+
+        //non suspicious withdrawls
+        bank.withdraw("11212", 49999);
+        bank.withdraw("11BFWGG", 10000);
+        bank.withdraw("11BFWGG", 1234);
+        bank.withdraw("test123", 100);
+        bank.withdraw("test123", 100);
+        bank.withdraw("test123", 100);
+        bank.withdraw("test123", 100);
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity().isEmpty());
+
+        //deposits of greater than or equal to 50,000
+
+        //deposits increasing in size by more than 75%
 
         //more than 10 depsits or withdrawls with in short period of time (one week)
 
-        //withdraws greater than 50,000
+        //withdraws greater than or equal to 50,000
 
     }
 

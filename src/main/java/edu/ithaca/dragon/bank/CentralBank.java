@@ -98,6 +98,8 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
 
 
     //------------------ AdminAPI methods -------------------------//
+    public Map<String, BankAccount>suspiciousMap = new HashMap<>();
+
 
     public double calcTotalAssets() {
         double total = 0;
@@ -109,7 +111,11 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
         return total;
     }
 
-    public Collection<String> findAcctIdsWithSuspiciousActivity() {
+    public Map<String, BankAccount> getSuspiciousMap() {
+        return suspiciousMap;
+    }
+
+    public Map<String, BankAccount> findAcctIdsWithSuspiciousActivity() {
         return null;
     }
 
