@@ -140,13 +140,13 @@ public class AdminAPITest {
         assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("test321"));
 
         //transfers greater than or equal to 75% of the account balance
-        bankAccount.tranfer("a1", "a2", 75000);
+        bankAccount.transfer("a1", "a2", 75000);
         assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a1"));
         assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a2"));
-        bankAccount.tranfer("a3", "a4", 100000);
+        bankAccount.transfer("a3", "a4", 100000);
         assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a3"));
         assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a4"));
-        bankAccount.tranfer("a5", "a6", 75001);
+        bankAccount.transfer("a5", "a6", 75001);
         assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a5"));
         assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a6"));
 
