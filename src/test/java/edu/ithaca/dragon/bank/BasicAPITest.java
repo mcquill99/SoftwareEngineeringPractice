@@ -24,7 +24,7 @@ public class BasicAPITest {
     }
 
     @Test
-    void checkBalanceTest() throws IllegalArgumentException, InsufficientFundsException{
+    void checkBalanceTest() throws IllegalArgumentException, InsufficientFundsException, AccountFrozenException {
         CentralBank bank = new CentralBank();
         bank.createAccount("test123", "a@b.com", "testpass", 1000);
         assertEquals(1000, bank.checkBalance("test123"));
@@ -47,7 +47,7 @@ public class BasicAPITest {
     }
 
     @Test
-    void withdrawTest() throws IllegalArgumentException, InsufficientFundsException{
+    void withdrawTest() throws IllegalArgumentException, InsufficientFundsException, AccountFrozenException {
         CentralBank bank = new CentralBank();
         bank.createAccount("test123", "a@b.com", "testpass", 1000);
         assertEquals(1000, bank.checkBalance("test123"));
@@ -71,7 +71,7 @@ public class BasicAPITest {
     }
 
     @Test
-    void depositTest() throws IllegalArgumentException{
+    void depositTest() throws IllegalArgumentException, AccountFrozenException {
         CentralBank bank = new CentralBank();
         bank.createAccount("test123", "a@b.com", "testpass", 1000);
         bank.deposit("test123", 100);
@@ -93,7 +93,7 @@ public class BasicAPITest {
     }
 
     @Test
-    void transferTest() throws InsufficientFundsException, IllegalArgumentException {
+    void transferTest() throws InsufficientFundsException, IllegalArgumentException, AccountFrozenException {
         CentralBank bank = new CentralBank();
         bank.createAccount("test1", "a@b.com", "testpass", 10000);
         bank.createAccount("test2", "b@c.com", "testpass", 500);
@@ -128,7 +128,7 @@ public class BasicAPITest {
     }
 
     @Test
-    void transactionHistoryTest() throws InsufficientFundsException{
+    void transactionHistoryTest() throws InsufficientFundsException, AccountFrozenException {
         CentralBank bank = new CentralBank();
         bank.createAccount("123","a@b.com", "testPass", 1000);
         bank.createAccount("456", "b@a.com", "testPass", 500);

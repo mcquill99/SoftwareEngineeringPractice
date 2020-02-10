@@ -32,18 +32,26 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
         return accountMap.get(acctId).getBalance();
     }
 
-    public void withdraw(String acctId, double amount) throws InsufficientFundsException, IllegalArgumentException {
+    public void withdraw(String acctId, double amount) throws InsufficientFundsException, IllegalArgumentException, AccountFrozenException{
         if(!accountMap.containsKey(acctId)){
             throw new IllegalArgumentException("Account does not exist with name: " + acctId);
         }
+        if(accountMap.get(acctId).getIsFrozen()){
+            throw new AccountFrozenException("Account is frozen and cannot complete transaction");
+        }
+
 
         accountMap.get(acctId).withdraw(amount);
     }
 
 
-    public void deposit(String acctId, double amount) throws IllegalArgumentException {
+    public void deposit(String acctId, double amount) throws IllegalArgumentException, AccountFrozenException {
         if(!accountMap.containsKey(acctId)){
             throw new IllegalArgumentException("Account does not exist with ID" + acctId);
+        }
+
+        if(accountMap.get(acctId).getIsFrozen()){
+            throw new AccountFrozenException("Account is frozen and cannot complete transaction");
         }
 
         accountMap.get(acctId).deposit(amount);
@@ -51,7 +59,7 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
 
     }
 
-    public void transfer(String acctIdToWithdrawFrom, String acctIdToDepositTo, double amount) throws IllegalArgumentException, InsufficientFundsException {
+    public void transfer(String acctIdToWithdrawFrom, String acctIdToDepositTo, double amount) throws IllegalArgumentException, InsufficientFundsException, AccountFrozenException {
         if(!accountMap.containsKey(acctIdToWithdrawFrom) || !accountMap.containsKey(acctIdToDepositTo) || acctIdToWithdrawFrom.equals(acctIdToDepositTo)){
             throw new IllegalArgumentException("Account does not exist with IDs given");
 
@@ -60,7 +68,9 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
         if(accountMap.get(acctIdToWithdrawFrom).getBalance() < amount){
             throw new InsufficientFundsException("Account does not have enough money");
         }
-
+        if(accountMap.get(acctIdToWithdrawFrom).getIsFrozen() || accountMap.get(acctIdToDepositTo).getIsFrozen()){
+            throw new AccountFrozenException("Account is frozen and cannot complete transaction");
+        }
 
         accountMap.get(acctIdToWithdrawFrom).transfer(amount, accountMap.get(acctIdToDepositTo));
 
@@ -114,10 +124,12 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
     }
 
     public void freezeAccount(String acctId) {
+
         accountMap.get(acctId).freeze();
     }
 
-    public void unfreezeAcct(String acctId) {
+    public void unfreezeAcct(String acctId){
+
         accountMap.get(acctId).unfreeze();
     }
 
