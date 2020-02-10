@@ -8,8 +8,8 @@ public class BasicAPITest {
     @Test
     void confirmCredentialsTest(){
 
-        CentralBank  bankAccount = new CentralBank();
-        CentralBank bankAccount2 = new CentralBank();
+        BankTeller bankAccount = new BankTeller();
+        BankTeller bankAccount2 = new BankTeller();
         bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500);
         bankAccount2.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
 
@@ -25,7 +25,7 @@ public class BasicAPITest {
 
     @Test
     void checkBalanceTest() throws IllegalArgumentException, InsufficientFundsException, AccountFrozenException {
-        CentralBank bank = new CentralBank();
+        BankTeller bank = new BankTeller();
         bank.createAccount("test123", "a@b.com", "testpass", 1000);
         assertEquals(1000, bank.checkBalance("test123"));
         //different account names
@@ -48,7 +48,7 @@ public class BasicAPITest {
 
     @Test
     void withdrawTest() throws IllegalArgumentException, InsufficientFundsException, AccountFrozenException {
-        CentralBank bank = new CentralBank();
+        BankTeller bank = new BankTeller();
         bank.createAccount("test123", "a@b.com", "testpass", 1000);
         assertEquals(1000, bank.checkBalance("test123"));
         //legal withdraws
@@ -72,7 +72,7 @@ public class BasicAPITest {
 
     @Test
     void depositTest() throws IllegalArgumentException, AccountFrozenException {
-        CentralBank bank = new CentralBank();
+        BankTeller bank = new BankTeller();
         bank.createAccount("test123", "a@b.com", "testpass", 1000);
         bank.deposit("test123", 100);
         assertEquals(1100, bank.checkBalance("test123"));
@@ -94,7 +94,7 @@ public class BasicAPITest {
 
     @Test
     void transferTest() throws InsufficientFundsException, IllegalArgumentException, AccountFrozenException {
-        CentralBank bank = new CentralBank();
+        BankTeller bank = new BankTeller();
         bank.createAccount("test1", "a@b.com", "testpass", 10000);
         bank.createAccount("test2", "b@c.com", "testpass", 500);
 
@@ -129,7 +129,7 @@ public class BasicAPITest {
 
     @Test
     void transactionHistoryTest() throws InsufficientFundsException, AccountFrozenException {
-        CentralBank bank = new CentralBank();
+        BankTeller bank = new BankTeller();
         bank.createAccount("123","a@b.com", "testPass", 1000);
         bank.createAccount("456", "b@a.com", "testPass", 500);
         //none

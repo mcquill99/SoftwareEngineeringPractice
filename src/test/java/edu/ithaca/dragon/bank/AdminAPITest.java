@@ -8,18 +8,23 @@ public class AdminAPITest {
 
     @Test
     void freezeTest() throws AccountFrozenException, InsufficientFundsException {
-        CentralBank bankAccount = new CentralBank();
+        BankTeller bankAccount = new BankTeller();
         bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500);
         bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
         bankAccount.createAccount("test123", "a@b.com", "testpass", 1000);
 
-        assertEquals(false, bankAccount.getIsFrozen("11212"));
-        assertEquals(false, bankAccount.getIsFrozen("11BFWGG"));
-        assertEquals(false, bankAccount.getIsFrozen("test123"));
+        assertEquals(false, bankAccount.accountMap.get("11212").getIsFrozen());
+        assertEquals(false, bankAccount.accountMap.get("11BFWGG").getIsFrozen());
+        assertEquals(false, bankAccount.accountMap.get("test123").getIsFrozen());
+
+//        bankAccount.accountMap.get("11212").freeze();
+//        bankAccount.accountMap.get("11BFWGG").freeze();
+//        bankAccount.accountMap.get("test123").freeze();
 
         bankAccount.freezeAccount("11212");
         bankAccount.freezeAccount("11BFWGG");
         bankAccount.freezeAccount("test123");
+
 
 
         assertEquals(true, bankAccount.getIsFrozen("11212"));
@@ -28,12 +33,14 @@ public class AdminAPITest {
 
         //next adding tests to see if when the account is frozen that deposit and other functions do not work
 
-        assertThrows(AccountFrozenException.class, ()-> bankAccount.withdraw("11212", 10));
-        assertThrows(AccountFrozenException.class, ()-> bankAccount.deposit("test123", 25));
-        assertThrows(AccountFrozenException.class, ()-> bankAccount.withdraw("11BFWGG", 10));
+        assertThrows(AccountFrozenException.class, () -> bankAccount.withdraw("11212", 10));
+        assertThrows(AccountFrozenException.class, () -> bankAccount.deposit("test123", 25));
+        assertThrows(AccountFrozenException.class, () -> bankAccount.withdraw("11BFWGG", 10));
 
+        //bankAccount.unfreezeAcct("test123");
         bankAccount.unfreezeAcct("test123");
-        assertThrows(AccountFrozenException.class, ()-> bankAccount.transfer("test123", "11BFWGG", 10));
+
+        assertThrows(AccountFrozenException.class, () -> bankAccount.transfer("test123", "11BFWGG", 10));
         bankAccount.unfreezeAcct("11BFWGG");
         bankAccount.transfer("test123", "11BFWGG", 10);
 
@@ -41,7 +48,7 @@ public class AdminAPITest {
         assertEquals(1010, bankAccount.checkBalance("11BFWGG"));
 
         bankAccount.freezeAccount("11BFWGG");
-        assertThrows(AccountFrozenException.class, ()-> bankAccount.transfer("test123", "11BFWGG", 10));
+        assertThrows(AccountFrozenException.class, () -> bankAccount.transfer("test123", "11BFWGG", 10));
 
 
 
@@ -51,33 +58,37 @@ public class AdminAPITest {
 
     @Test
     void unFreezeTest() throws AccountFrozenException{
-        CentralBank bankAccount = new CentralBank();
+        BankTeller bankAccount = new BankTeller();
 
         bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500);
         bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
         bankAccount.createAccount("test123", "a@b.com", "testpass", 1000);
 
+
+
         bankAccount.freezeAccount("11212");
-        bankAccount.freezeAccount("11BFWGG");
         bankAccount.freezeAccount("test123");
+        bankAccount.freezeAccount("11BFWGG");
+
 
         assertEquals(true, bankAccount.getIsFrozen("11212"));
         assertEquals(true, bankAccount.getIsFrozen("11BFWGG"));
         assertEquals(true, bankAccount.getIsFrozen("test123"));
 
-        bankAccount.unfreezeAcct("11212");
-        bankAccount.unfreezeAcct("11BFWGG");
+
+
         bankAccount.unfreezeAcct("test123");
+        bankAccount.unfreezeAcct("11BFWGG");
+        bankAccount.unfreezeAcct("11212");
 
         assertEquals(false, bankAccount.getIsFrozen("11212"));
         assertEquals(false, bankAccount.getIsFrozen("11BFWGG"));
         assertEquals(false, bankAccount.getIsFrozen("test123"));
-
     }
 
     @Test
     void totalAssetTest() throws InsufficientFundsException, AccountFrozenException {
-        CentralBank bank = new CentralBank();
+        BankTeller bank = new BankTeller();
 
         //multiple accounts
         bank.createAccount("123","a@b.com", "testPass", 0.99);
@@ -104,4 +115,4 @@ public class AdminAPITest {
     }
 
 
-}
+    }
