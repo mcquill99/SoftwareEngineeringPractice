@@ -4,16 +4,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AdminSoftware extends CentralBank implements AdminAPI {
+public class AdminSoftware  implements AdminAPI {
 
 
 
     //------------------ AdminAPI methods -------------------------//
 
+    private CentralBank bank;
+
+    public AdminSoftware(CentralBank bank){
+        this.bank = bank;
+    }
     public double calcTotalAssets() {
         double total = 0;
 
-        for(BankAccount account : accountMap.values()){
+        for(BankAccount account : bank.accountMap.values()){
             total = total + account.getBalance();
         }
 
@@ -26,16 +31,16 @@ public class AdminSoftware extends CentralBank implements AdminAPI {
 
     public void freezeAccount(String acctId) {
 
-        accountMap.get(acctId).freeze();
+        bank.accountMap.get(acctId).freeze();
     }
 
     public void unfreezeAcct(String acctId){
 
-        accountMap.get(acctId).unfreeze();
+        bank.accountMap.get(acctId).unfreeze();
     }
 
     public boolean getIsFrozen(String acctId){
-        return accountMap.get(acctId).getIsFrozen();
+        return bank.accountMap.get(acctId).getIsFrozen();
     }
 
 

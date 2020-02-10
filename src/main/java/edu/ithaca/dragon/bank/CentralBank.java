@@ -6,10 +6,13 @@ import java.util.Map;
 
 public class CentralBank  {
 
-    //----------------- BasicAPI methods -------------------------//
-
 
     public Map<String, BankAccount>accountMap = new HashMap<>();
+
+    public ATM atm = new ATM(this);
+    public BankTeller teller = new BankTeller(this);
+    public AdminSoftware admin = new AdminSoftware(this);
+
 
 
 
