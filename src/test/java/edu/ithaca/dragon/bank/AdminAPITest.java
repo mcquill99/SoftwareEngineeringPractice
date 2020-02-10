@@ -94,6 +94,14 @@ public class AdminAPITest {
         bankAccount.createAccount("98765", "tester@gmail.com", "singleLetter", 100000);
         bankAccount.createAccount("test321", "a@b.com", "testpass", 100000);
 
+        bankAccount.createAccount("a1", "a@b.com", "testingPassword", 100000);
+        bankAccount.createAccount("a2", "tester@gmail.com", "singleLetter", 100000);
+        bankAccount.createAccount("a3", "a@b.com", "testpass", 100000);
+
+        bankAccount.createAccount("a4", "a@b.com", "testingPassword", 100000);
+        bankAccount.createAccount("a5", "tester@gmail.com", "singleLetter", 100000);
+        bankAccount.createAccount("a6", "a@b.com", "testpass", 100000);
+
         //test empty map of suspicious accounts
         assertEquals(true, bank.findAcctIdsWithSuspiciousActivity().isEmpty());
 
@@ -117,23 +125,31 @@ public class AdminAPITest {
 
         //deposits of greater than or equal to 50,000
         bank.deposit("11212", 50000);
-        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("11212"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("11212"));
         bank.deposit("11BFWGG",100000);
-        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("11BFWGG"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("11BFWGG"));
         bank.deposit("test123", 50001);
-        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("test123"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("test123"));
 
         //withdraws greater than or equal to 50,000
         bank.withdraw("12345", 50000);
-        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("12345"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("12345"));
         bank.deposit("98765",60234);
-        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("98765"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("98765"));
         bank.deposit("test321", 50001);
-        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("test321"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("test321"));
 
-        //deposits increasing in size by more than 75%
+        //transfers greater than or equal to 75% of the account balance
+        bank.tranfer("a1", "a2", 75000);
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("a1"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("a2"));
+        bank.tranfer("a3", "a4", 100000);
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("a3"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("a4"));
+        bank.tranfer("a5", "a6", 75001);
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("a5"));
+        assertEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("a6"));
 
-        //more than 10 depsits or withdrawls with in short period of time (one week)
 
     }
 
