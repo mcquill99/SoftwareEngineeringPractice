@@ -86,9 +86,13 @@ public class AdminAPITest {
     @Test
     void suspiciousActivityTest(){
         CentralBank bank = new CentralBank();
-        bankAccount.createAccount("11212", "a@b.com", "testingPassword", 50000);
+        bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500000);
         bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 100000);
         bankAccount.createAccount("test123", "a@b.com", "testpass", 100000);
+
+        bankAccount.createAccount("12345", "a@b.com", "testingPassword", 500000);
+        bankAccount.createAccount("98765", "tester@gmail.com", "singleLetter", 100000);
+        bankAccount.createAccount("test321", "a@b.com", "testpass", 100000);
 
         //test empty map of suspicious accounts
         assertEquals(true, bank.findAcctIdsWithSuspiciousActivity().isEmpty());
@@ -112,12 +116,24 @@ public class AdminAPITest {
         assertEquals(true, bank.findAcctIdsWithSuspiciousActivity().isEmpty());
 
         //deposits of greater than or equal to 50,000
+        bank.deposit("11212", 50000);
+        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("11212"));
+        bank.deposit("11BFWGG",100000);
+        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("11BFWGG"));
+        bank.deposit("test123", 50001);
+        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("test123"));
+
+        //withdraws greater than or equal to 50,000
+        bank.withdraw("12345", 50000);
+        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("12345"));
+        bank.deposit("98765",60234);
+        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("98765"));
+        bank.deposit("test321", 50001);
+        asserEquals(true, bank.findAcctIdsWithSuspiciousActivity.containsKey("test321"));
 
         //deposits increasing in size by more than 75%
 
         //more than 10 depsits or withdrawls with in short period of time (one week)
-
-        //withdraws greater than or equal to 50,000
 
     }
 
