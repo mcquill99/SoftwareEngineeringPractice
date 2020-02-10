@@ -62,15 +62,16 @@ public class CentralBank implements AdvancedAPI, AdminAPI {
         }
 
 
-        accountMap.get(acctIdToWithdrawFrom).withdraw(amount);
-        accountMap.get(acctIdToDepositTo).deposit(amount);
+        accountMap.get(acctIdToWithdrawFrom).transfer(amount, accountMap.get(acctIdToDepositTo));
 
 
 
     }
 
     public String transactionHistory(String acctId) {
-        return null;
+
+        BankAccount account = accountMap.get(acctId);
+        return account.transactionHistory();
     }
 
 
