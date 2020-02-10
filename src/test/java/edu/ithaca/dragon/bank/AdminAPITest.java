@@ -7,7 +7,7 @@ public class AdminAPITest {
 
 
     @Test
-    void freezeTest(){
+    void freezeTest() throws AccountFrozenException, InsufficientFundsException {
         CentralBank bankAccount = new CentralBank();
         bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500);
         bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
@@ -21,16 +21,36 @@ public class AdminAPITest {
         bankAccount.freezeAccount("11BFWGG");
         bankAccount.freezeAccount("test123");
 
+
         assertEquals(true, bankAccount.getIsFrozen("11212"));
         assertEquals(true, bankAccount.getIsFrozen("11BFWGG"));
         assertEquals(true, bankAccount.getIsFrozen("test123"));
 
         //next adding tests to see if when the account is frozen that deposit and other functions do not work
 
+        assertThrows(AccountFrozenException.class, ()-> bankAccount.withdraw("11212", 10));
+        assertThrows(AccountFrozenException.class, ()-> bankAccount.deposit("test123", 25));
+        assertThrows(AccountFrozenException.class, ()-> bankAccount.withdraw("11BFWGG", 10));
+
+        bankAccount.unfreezeAcct("test123");
+        assertThrows(AccountFrozenException.class, ()-> bankAccount.transfer("test123", "11BFWGG", 10));
+        bankAccount.unfreezeAcct("11BFWGG");
+        bankAccount.transfer("test123", "11BFWGG", 10);
+
+        assertEquals(990, bankAccount.checkBalance("test123"));
+        assertEquals(1010, bankAccount.checkBalance("11BFWGG"));
+
+        bankAccount.freezeAccount("11BFWGG");
+        assertThrows(AccountFrozenException.class, ()-> bankAccount.transfer("test123", "11BFWGG", 10));
+
+
+
+
+
     }
 
     @Test
-    void unFreezeTest(){
+    void unFreezeTest() throws AccountFrozenException{
         CentralBank bankAccount = new CentralBank();
 
         bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500);
@@ -56,7 +76,7 @@ public class AdminAPITest {
     }
 
     @Test
-    void totalAssetTest() throws InsufficientFundsException{
+    void totalAssetTest() throws InsufficientFundsException, AccountFrozenException {
         CentralBank bank = new CentralBank();
 
         //multiple accounts
