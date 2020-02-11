@@ -3,6 +3,7 @@ package edu.ithaca.dragon.bank;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+
 public class BankAccount {
 
     private String email;
@@ -60,6 +61,7 @@ public class BankAccount {
         }
         if (amount >= 50000){
             isSus = true;
+
         }
         if (balance >= amount && amount >= 0) {
             balance -= amount;
