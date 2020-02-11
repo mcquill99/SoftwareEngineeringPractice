@@ -14,6 +14,15 @@ public class ATM implements BasicAPI{
     public ATM(CentralBank bank){
         this.bank = bank;
     }
+
+
+    /***
+     * Description : make sure acct is included within the Central Bank map and confirm password
+     * to make transactions
+     * @param acctId
+     * @param password
+     * @return boolean if credentials match
+     */
     public boolean confirmCredentials(String acctId, String password){
 
         if(bank.accountMap.containsKey(acctId)){
@@ -25,7 +34,12 @@ public class ATM implements BasicAPI{
         return false;
     }
 
-
+    /**
+     * Description : Checks balance if account is in map
+     * @param acctId
+     * @return balance for account
+     * @throws IllegalArgumentException
+     */
     public double checkBalance(String acctId) throws IllegalArgumentException {
         if(!bank.accountMap.containsKey(acctId)){
             throw new IllegalArgumentException("Account does not exist with name: " + acctId);
@@ -33,6 +47,16 @@ public class ATM implements BasicAPI{
         return bank.accountMap.get(acctId).getBalance();
     }
 
+
+    /**
+     * Description : User withdraws money from account and subtracts from total balance
+     * @param acctId
+     * @param amount
+     * @throws InsufficientFundsException
+     * @throws IllegalArgumentException
+     * @throws AccountFrozenException
+     * return: none
+     */
     public void withdraw(String acctId, double amount) throws InsufficientFundsException, IllegalArgumentException, AccountFrozenException{
         if(!bank.accountMap.containsKey(acctId)){
             throw new IllegalArgumentException("Account does not exist with name: " + acctId);
@@ -46,6 +70,14 @@ public class ATM implements BasicAPI{
     }
 
 
+    /**
+     * Description: Deposit money to users overall balance and will increase
+     * @param acctId
+     * @param amount
+     * @throws IllegalArgumentException
+     * @throws AccountFrozenException
+     * @return none
+     */
     public void deposit(String acctId, double amount) throws IllegalArgumentException, AccountFrozenException {
         if(!bank.accountMap.containsKey(acctId)){
             throw new IllegalArgumentException("Account does not exist with ID" + acctId);
@@ -59,6 +91,16 @@ public class ATM implements BasicAPI{
 
 
     }
+
+    /**
+     * Description: finds two accounts and withdraws money from one account and adds it to another account
+     * @param acctIdToWithdrawFrom
+     * @param acctIdToDepositTo
+     * @param amount
+     * @throws IllegalArgumentException
+     * @throws InsufficientFundsException
+     * @throws AccountFrozenException
+     */
 
     public void transfer(String acctIdToWithdrawFrom, String acctIdToDepositTo, double amount) throws IllegalArgumentException, InsufficientFundsException, AccountFrozenException {
         if(!bank.accountMap.containsKey(acctIdToWithdrawFrom) || !bank.accountMap.containsKey(acctIdToDepositTo) || acctIdToWithdrawFrom.equals(acctIdToDepositTo)){
@@ -79,6 +121,11 @@ public class ATM implements BasicAPI{
 
     }
 
+    /**
+     * Description: Shows all transactions made by a user based on its acctId since the beginning of time
+     * @param acctId
+     * @return String of all transactions made
+     */
     public String transactionHistory(String acctId) {
 
         BankAccount account = bank.accountMap.get(acctId);
