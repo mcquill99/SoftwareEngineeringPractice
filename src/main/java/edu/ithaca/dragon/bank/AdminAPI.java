@@ -12,4 +12,6 @@ public interface AdminAPI {
 
     public void unfreezeAcct(String acctId);
 
+    public boolean getIsFrozen(String acctId);
+
 }
