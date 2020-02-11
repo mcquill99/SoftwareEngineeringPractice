@@ -29,16 +29,16 @@ public class AdminSoftware  implements AdminAPI {
 
     public Collection<String> findAcctIdsWithSuspiciousActivity() {
         Collection<String> susAccts = new ArrayList<>();
-        Collection<BankAccount> acctsInBank = bank.accountMap.values();
+        Iterator item = bank.accountMap.entrySet().iterator();
 
-        Iterator<BankAccount> iterator = acctsInBank.iterator();
-
-        while (iterator.hasNext()) {
-            if(iterator.next().getIsSus() == true){
-                susAccts.add(iterator.next().getAcctId());
+        while (item.hasNext()) {
+            Map.Entry entry = (Map.Entry) item.next();
+            BankAccount accountToLookAt = (BankAccount) entry.getValue();
+            String keyToLookAt = (String) entry.getKey();
+            if(accountToLookAt.getIsSus() == true){
+                susAccts.add(keyToLookAt);
             }
         }
-
         return susAccts;
     }
 
