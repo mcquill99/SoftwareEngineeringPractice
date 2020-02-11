@@ -21,7 +21,7 @@ public class BankTeller extends ATM implements AdvancedAPI  {
      */
     public void createAccount(String acctId, String email, String password, double startingBalance) {
         BankAccount account = new BankAccount(acctId, email, password, startingBalance);
-        bank.accountMap.put(acctId, account);
+        bank.addAccount(acctId, account);
 
     }
 
@@ -32,7 +32,7 @@ public class BankTeller extends ATM implements AdvancedAPI  {
      * return : none
      */
     public void closeAccount(String acctId) {
-        bank.accountMap.remove(acctId);
+        bank.removeAccount(acctId);
     }
 
 

@@ -8,13 +8,41 @@ import java.util.Map;
 public class CentralBank  {
 
 
-    public Map<String, BankAccount>accountMap = new HashMap<>();
-    public Collection<BankAccount>susAccounts = new ArrayList<>();
+    private Map<String, BankAccount>accountMap = new HashMap<>();
 
-    public ATM atm = new ATM(this);
-    public BankTeller teller = new BankTeller(this);
-    public AdminSoftware admin = new AdminSoftware(this);
+    public BankAccount getAccount(String acctId){
+        return accountMap.get(acctId);
+    }
 
+    public void addAccount(String acctId, BankAccount account){
+        accountMap.put(acctId, account);
+    }
+
+    public void removeAccount(String acctId){
+        accountMap.remove(acctId);
+    }
+
+    public double totalBalance(){
+        double total = 0;
+        for(BankAccount account : accountMap.values()){
+            total = total + account.getBalance();
+        }
+
+        return total;
+
+    }
+
+    public Collection<String> suspiciousAccounts(){
+        ArrayList<String> suspiciousAccounts = new ArrayList<>();
+
+        for(BankAccount account : accountMap.values()){
+            if(account.getIsSus()){
+                suspiciousAccounts.add(account.getAcctId());
+            }
+        }
+
+        return suspiciousAccounts;
+    }
 
 
 

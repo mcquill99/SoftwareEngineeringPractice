@@ -25,8 +25,8 @@ public class ATM implements BasicAPI{
      */
     public boolean confirmCredentials(String acctId, String password){
 
-        if(bank.accountMap.containsKey(acctId)){
-            return bank.accountMap.get(acctId).getPassword().equals(password);
+        if(bank.getAccount(acctId) != null){
+            return bank.getAccount(acctId).getPassword().equals(password);
         }
 
 
@@ -41,10 +41,10 @@ public class ATM implements BasicAPI{
      * @throws IllegalArgumentException
      */
     public double checkBalance(String acctId) throws IllegalArgumentException {
-        if(!bank.accountMap.containsKey(acctId)){
+        if(bank.getAccount(acctId) == null){
             throw new IllegalArgumentException("Account does not exist with name: " + acctId);
         }
-        return bank.accountMap.get(acctId).getBalance();
+        return bank.getAccount(acctId).getBalance();
     }
 
 
@@ -58,15 +58,15 @@ public class ATM implements BasicAPI{
      * return: none
      */
     public void withdraw(String acctId, double amount) throws InsufficientFundsException, IllegalArgumentException, AccountFrozenException{
-        if(!bank.accountMap.containsKey(acctId)){
+        if(bank.getAccount(acctId) == null){
             throw new IllegalArgumentException("Account does not exist with name: " + acctId);
         }
-        if(bank.accountMap.get(acctId).getIsFrozen()){
+        if(bank.getAccount(acctId).getIsFrozen()){
             throw new AccountFrozenException("Account is frozen and cannot complete transaction");
         }
 
 
-        bank.accountMap.get(acctId).withdraw(amount);
+        bank.getAccount(acctId).withdraw(amount);
     }
 
 
@@ -79,15 +79,15 @@ public class ATM implements BasicAPI{
      * @return none
      */
     public void deposit(String acctId, double amount) throws IllegalArgumentException, AccountFrozenException {
-        if(!bank.accountMap.containsKey(acctId)){
+        if(bank.getAccount(acctId) == null){
             throw new IllegalArgumentException("Account does not exist with ID" + acctId);
         }
 
-        if(bank.accountMap.get(acctId).getIsFrozen()){
+        if(bank.getAccount(acctId).getIsFrozen()){
             throw new AccountFrozenException("Account is frozen and cannot complete transaction");
         }
 
-        bank.accountMap.get(acctId).deposit(amount);
+        bank.getAccount(acctId).deposit(amount);
 
 
     }
@@ -103,19 +103,19 @@ public class ATM implements BasicAPI{
      */
 
     public void transfer(String acctIdToWithdrawFrom, String acctIdToDepositTo, double amount) throws IllegalArgumentException, InsufficientFundsException, AccountFrozenException {
-        if(!bank.accountMap.containsKey(acctIdToWithdrawFrom) || !bank.accountMap.containsKey(acctIdToDepositTo) || acctIdToWithdrawFrom.equals(acctIdToDepositTo)){
+        if(bank.getAccount(acctIdToWithdrawFrom) == null || bank.getAccount(acctIdToDepositTo) == null || acctIdToWithdrawFrom.equals(acctIdToDepositTo)){
             throw new IllegalArgumentException("Account does not exist with IDs given");
 
         }
 
-        if(bank.accountMap.get(acctIdToWithdrawFrom).getBalance() < amount){
+        if(bank.getAccount(acctIdToWithdrawFrom).getBalance() < amount){
             throw new InsufficientFundsException("Account does not have enough money");
         }
-        if(bank.accountMap.get(acctIdToWithdrawFrom).getIsFrozen() || bank.accountMap.get(acctIdToDepositTo).getIsFrozen()){
+        if(bank.getAccount(acctIdToWithdrawFrom).getIsFrozen() || bank.getAccount(acctIdToDepositTo).getIsFrozen()){
             throw new AccountFrozenException("Account is frozen and cannot complete transaction");
         }
 
-        bank.accountMap.get(acctIdToWithdrawFrom).transfer(amount, bank.accountMap.get(acctIdToDepositTo));
+        bank.getAccount(acctIdToWithdrawFrom).transfer(amount, bank.getAccount(acctIdToDepositTo));
 
 
 
@@ -128,7 +128,7 @@ public class ATM implements BasicAPI{
      */
     public String transactionHistory(String acctId) {
 
-        BankAccount account = bank.accountMap.get(acctId);
+        BankAccount account = bank.getAccount(acctId);
         return account.transactionHistory();
     }
 }
