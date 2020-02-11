@@ -3,6 +3,8 @@ package edu.ithaca.dragon.bank;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AdminSoftware  implements AdminAPI {
 
@@ -26,12 +28,14 @@ public class AdminSoftware  implements AdminAPI {
     }
 
     public Collection<String> findAcctIdsWithSuspiciousActivity() {
-        ArrayList<String> susAccts;
-        ArrayList<BankAccount> acctsInBank = accountMap.values();
+        Collection<String> susAccts = new ArrayList<>();
+        Collection<BankAccount> acctsInBank = bank.accountMap.values();
 
-        for(int i=0; i <= acctsInBank; i++){
-            if(acctsInBank.get(i).getIsSus() == true){
-                susAccts.add(acctsInBank.getId());
+        Iterator<BankAccount> iterator = acctsInBank.iterator();
+
+        while (iterator.hasNext()) {
+            if(iterator.next().getIsSus() == true){
+                susAccts.add(iterator.next().getAcctId());
             }
         }
 
