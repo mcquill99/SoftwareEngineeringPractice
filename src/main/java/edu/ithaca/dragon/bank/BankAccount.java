@@ -10,6 +10,7 @@ public class BankAccount {
     private String password;
     private String acctId;
     private boolean isFrozen;
+    private boolean isSus;
     private ArrayList<String> transactionHistory = new ArrayList<String>();
 
 
@@ -29,6 +30,7 @@ public class BankAccount {
                 this.balance = startingBalance;
                 this.password = password;
                 this.isFrozen = false;
+                this.isSus = false;
             }
             else{
                 throw new IllegalArgumentException("starting Balance of " + startingBalance + "is an invalid amount to add");
@@ -56,6 +58,9 @@ public class BankAccount {
         if(!isAmountValid(amount)){
             throw new IllegalArgumentException("Amount must have 2 decimal places and must be positive ");
         }
+        if (amount >= 50000){
+            isSus = true;
+        }
         if (balance >= amount && amount >= 0) {
             balance -= amount;
 
@@ -75,6 +80,9 @@ public class BankAccount {
         if(!isAmountValid(amount)){
             throw new IllegalArgumentException("Amount must have 2 or less decimal places and must be positive");
         }
+        if (amount >= 50000){
+            isSus = true;
+        }
         balance += amount;
 
         transactionHistory.add("Deposited $" + amount);
@@ -89,6 +97,11 @@ public class BankAccount {
             if(!isAmountValid(amount) || toTransfer == this){
                 throw new IllegalArgumentException("Amount must be positive, have 2 decimals or less, and transfer to a new bank account");
             }
+
+            if (amount >= this.getBalance() * .75){
+                isSus = true;
+            }
+
             this.withdraw(amount);
             toTransfer.deposit(amount);
 
@@ -124,6 +137,14 @@ public class BankAccount {
     }
 
     /**
+     * returns the acctID
+     * @return acctId
+     */
+    public String getAcctId(){
+        return acctId;
+    }
+
+    /**
      * a function to return the password of the account
      * @return account password
      */
@@ -151,6 +172,14 @@ public class BankAccount {
      */
     public boolean getIsFrozen(){
         return isFrozen;
+    }
+
+    /**
+     * returns the state of suspicious activty
+     * @return isSus
+     */
+    public boolean getIsSus(){
+        return isSus;
     }
 
     /**
