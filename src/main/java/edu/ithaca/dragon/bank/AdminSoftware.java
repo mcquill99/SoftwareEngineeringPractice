@@ -27,12 +27,12 @@ public class AdminSoftware  implements AdminAPI {
 
     public void freezeAccount(String acctId) {
 
-        bank.getAccount(acctId).freeze();
+        bank.getAccount(acctId).toFreeze(true);
     }
 
     public void unfreezeAcct(String acctId){
 
-        bank.getAccount(acctId).unfreeze();
+        bank.getAccount(acctId).toFreeze(false);
     }
 
     public boolean getIsFrozen(String acctId){

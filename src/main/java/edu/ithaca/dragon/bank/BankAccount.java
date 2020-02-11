@@ -6,19 +6,16 @@ import java.util.regex.Pattern;
 
 public class BankAccount {
 
-    private String email;
-    private double balance;
-    private String password;
     private String acctId;
+    private String email;
+    private String password;
+    private double balance;
     private boolean isFrozen;
     private boolean isSus;
     private ArrayList<String> transactionHistory = new ArrayList<String>();
 
 
 
-    public BankAccount(String email, double startingBalance) {
-        this("", email, "", startingBalance);
-    }
 
     /**
      * @throws IllegalArgumentException if email is invalid
@@ -42,13 +39,6 @@ public class BankAccount {
         }
     }
 
-    public double getBalance(){
-        return balance;
-    }
-
-    public String getEmail(){
-        return email;
-    }
 
     /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
@@ -107,7 +97,7 @@ public class BankAccount {
             this.withdraw(amount);
             toTransfer.deposit(amount);
 
-            transactionHistory.remove(transactionHistory.size()-1);
+            transactionHistory.remove(transactionHistory.size()-1); //remove withdraw and deposit comments
             toTransfer.transactionHistory.remove(toTransfer.transactionHistory.size()-1);
 
             transactionHistory.add("Transferred $" + amount + " to Account " + toTransfer.acctId);
@@ -139,6 +129,28 @@ public class BankAccount {
     }
 
     /**
+     * returns all transactions that have occurred on the account
+     * This includes deposits, withdraws, and transfers
+     * @return a string of all transactions
+     */
+    public String transactionHistory(){
+        if(transactionHistory.size() == 0){
+            return "";
+        }
+
+        String transactionString  = transactionHistory.toString();
+        return(transactionString.substring(1, transactionString.length()-1)); //removes brackets
+
+    }
+
+    /**
+     * freezes the account, preventing transactions
+     */
+    public void toFreeze(boolean frozen){
+        isFrozen = frozen;
+    }
+
+    /**
      * returns the acctID
      * @return acctId
      */
@@ -154,19 +166,6 @@ public class BankAccount {
         return password;
     }
 
-    /**
-     * freezes the account, preventing transactions
-     */
-    public void freeze(){
-        isFrozen = true;
-    }
-
-    /**
-     * unfreezes the account
-     */
-    public void unfreeze(){
-        isFrozen = false;
-    }
 
     /**
      * returns the current frozen state of the account
@@ -184,18 +183,12 @@ public class BankAccount {
         return isSus;
     }
 
-    /**
-     * returns all transactions that have occurred on the account
-     * This includes deposits, withdraws, and transfers
-     * @return a string of all transactions
-     */
-    public String transactionHistory(){
-        if(transactionHistory.size() == 0){
-            return "";
-        }
-
-        String transactionString  = transactionHistory.toString();
-        return(transactionString.substring(1, transactionString.length()-1)); //removes brackets
-
+    public double getBalance(){
+        return balance;
     }
+
+    public String getEmail(){
+        return email;
+    }
+
 }

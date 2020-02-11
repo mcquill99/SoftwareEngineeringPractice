@@ -103,13 +103,9 @@ public class ATM implements BasicAPI{
      */
 
     public void transfer(String acctIdToWithdrawFrom, String acctIdToDepositTo, double amount) throws IllegalArgumentException, InsufficientFundsException, AccountFrozenException {
-        if(bank.getAccount(acctIdToWithdrawFrom) == null || bank.getAccount(acctIdToDepositTo) == null || acctIdToWithdrawFrom.equals(acctIdToDepositTo)){
+        if(bank.getAccount(acctIdToWithdrawFrom) == null || bank.getAccount(acctIdToDepositTo) == null){
             throw new IllegalArgumentException("Account does not exist with IDs given");
 
-        }
-
-        if(bank.getAccount(acctIdToWithdrawFrom).getBalance() < amount){
-            throw new InsufficientFundsException("Account does not have enough money");
         }
         if(bank.getAccount(acctIdToWithdrawFrom).getIsFrozen() || bank.getAccount(acctIdToDepositTo).getIsFrozen()){
             throw new AccountFrozenException("Account is frozen and cannot complete transaction");

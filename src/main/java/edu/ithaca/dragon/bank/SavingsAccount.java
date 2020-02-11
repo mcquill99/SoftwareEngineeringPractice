@@ -7,8 +7,8 @@ public class SavingsAccount extends BankAccount {
 
      * @throws IllegalArgumentException if email is invalid
      */
-    public SavingsAccount(String email, double startingBalance, double interest, double withdrawLimit) throws IllegalArgumentException {
-        super(email, startingBalance);
+    public SavingsAccount(String acctId, String email, String password, double startingBalance, double interest, double withdrawLimit) throws IllegalArgumentException {
+        super(acctId,email,password, startingBalance);
         if(interest < 0 || withdrawLimit <= 0){
             throw new IllegalArgumentException("Interest must be at least 0% and you must be able to withdraw from the account");
         }
