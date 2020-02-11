@@ -114,5 +114,75 @@ public class AdminAPITest {
         assertEquals(99999.52, bank.admin.calcTotalAssets());
     }
 
+    @Test
+    void suspiciousActivityTest() throws InsufficientFundsException {
+        CentralBank bankAccount = new CentralBank();
+        bankAccount.createAccount("11212", "a@b.com", "testingPassword", 500000);
+        bankAccount.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 100000);
+        bankAccount.createAccount("test123", "a@b.com", "testpass", 100000);
+
+        bankAccount.createAccount("12345", "a@b.com", "testingPassword", 500000);
+        bankAccount.createAccount("98765", "tester@gmail.com", "singleLetter", 100000);
+        bankAccount.createAccount("test321", "a@b.com", "testpass", 100000);
+
+        bankAccount.createAccount("a1", "a@b.com", "testingPassword", 100000);
+        bankAccount.createAccount("a2", "tester@gmail.com", "singleLetter", 100000);
+        bankAccount.createAccount("a3", "a@b.com", "testpass", 100000);
+
+        bankAccount.createAccount("a4", "a@b.com", "testingPassword", 100000);
+        bankAccount.createAccount("a5", "tester@gmail.com", "singleLetter", 100000);
+        bankAccount.createAccount("a6", "a@b.com", "testpass", 100000);
+
+        //test empty map of suspicious accounts
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity().isEmpty());
+
+        //non suspicious deposits
+        bankAccount.deposit("11212",49999);
+        bankAccount.deposit("11BFWGG", 10);
+        bankAccount.deposit("11BFWGG", 10);
+        bankAccount.deposit("11BFWGG", 10);
+        bankAccount.deposit("test123", 1234);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity().isEmpty());
+
+        //non suspicious withdrawls
+        bankAccount.withdraw("11212", 49999);
+        bankAccount.withdraw("11BFWGG", 10000);
+        bankAccount.withdraw("11BFWGG", 1234);
+        bankAccount.withdraw("test123", 100);
+        bankAccount.withdraw("test123", 100);
+        bankAccount.withdraw("test123", 100);
+        bankAccount.withdraw("test123", 100);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity().isEmpty());
+
+        //deposits of greater than or equal to 50,000
+        bankAccount.deposit("11212", 50000);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("11212"));
+        bankAccount.deposit("11BFWGG",100000);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("11BFWGG"));
+        bankAccount.deposit("test123", 50001);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("test123"));
+
+        //withdraws greater than or equal to 50,000
+        bankAccount.withdraw("12345", 50000);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("12345"));
+        bankAccount.deposit("98765",60234);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("98765"));
+        bankAccount.deposit("test321", 50001);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("test321"));
+
+        //transfers greater than or equal to 75% of the account balance
+        bankAccount.transfer("a1", "a2", 75000);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a1"));
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a2"));
+        bankAccount.transfer("a3", "a4", 100000);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a3"));
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a4"));
+        bankAccount.transfer("a5", "a6", 75001);
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a5"));
+        assertEquals(true, bankAccount.findAcctIdsWithSuspiciousActivity.containsKey("a6"));
+
+
+    }
+
 
     }

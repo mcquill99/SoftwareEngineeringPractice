@@ -26,7 +26,16 @@ public class AdminSoftware  implements AdminAPI {
     }
 
     public Collection<String> findAcctIdsWithSuspiciousActivity() {
-        return null;
+        ArrayList<String> susAccts;
+        ArrayList<BankAccount> acctsInBank = accountMap.values();
+
+        for(int i=0; i <= acctsInBank; i++){
+            if(acctsInBank.get(i).getIsSus() == true){
+                susAccts.add(acctsInBank.getId());
+            }
+        }
+
+        return susAccts;
     }
 
     public void freezeAccount(String acctId) {
