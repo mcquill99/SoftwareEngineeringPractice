@@ -115,7 +115,7 @@ public class AdminAPITest {
     }
 
     @Test
-    void suspiciousActivityTest() throws InsufficientFundsException {
+    void suspiciousActivityTest() throws InsufficientFundsException, AccountFrozenException {
         CentralBank bankAccount = new CentralBank();
         bankAccount.teller.createAccount("11212", "a@b.com", "testingPassword", 500000);
         bankAccount.teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 100000);

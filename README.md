@@ -21,3 +21,6 @@ Sequence Diagrams:
 
 Withdraw:
 https://drive.google.com/file/d/1H40ACdlAAn0ablIb3DbfeRlVRgy6oMVv/view?usp=sharing
+
+Deposit:
+https://drive.google.com/file/d/1GHBlp3YnRbhyRePHzMLX1TspAjhjRsAC/view?usp=sharing
