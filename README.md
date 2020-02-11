@@ -11,7 +11,7 @@ constructor & withdraw fix|
 
 Class Diagram:
 
-https://drive.google.com/file/d/1D0nDA2LrNrJv8c999SIPumXAtFxpsHtb/view?usp=sharing
+![Diagram](https://drive.google.com/file/d/1D0nDA2LrNrJv8c999SIPumXAtFxpsHtb/view?usp=sharing)
 
 Use Case Diagram:
 
