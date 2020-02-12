@@ -32,6 +32,6 @@ https://drive.google.com/file/d/1t4xpb56MMHm-fuJWn91dIArscbTCK7My/view?usp=shari
 
 To Change For Friday:
 ---------------------
-- [] Update Class Diagram to reflect use of APIs
-- [] Update Naming of Classes to betetr reflect API
-- [] Change Account Structure to remove BankAccount objects in favor of CheckingAccounts
+- Update Class Diagram to reflect use of APIs
+- Update Naming of Classes to betetr reflect API
+- Change Account Structure to remove BankAccount objects in favor of CheckingAccounts
