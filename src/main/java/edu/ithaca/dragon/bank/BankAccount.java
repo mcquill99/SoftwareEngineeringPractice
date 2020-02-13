@@ -12,7 +12,7 @@ public class BankAccount {
     private double balance;
     private boolean isFrozen;
     private boolean isSus;
-    private ArrayList<String> transactionHistory = new ArrayList<String>();
+    private ArrayList<String> transactionHistory = new ArrayList<>();
 
 
 
@@ -150,10 +150,14 @@ public class BankAccount {
         isFrozen = frozen;
     }
 
+    public void compoundInterest(){
+        balance = balance + 0;
+    }
     /**
      * returns the acctID
      * @return acctId
      */
+
     public String getAcctId(){
         return acctId;
     }
