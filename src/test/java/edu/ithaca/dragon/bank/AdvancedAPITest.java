@@ -8,7 +8,7 @@ public class AdvancedAPITest {
     @Test
     void createAccountTest(){
         CentralBank bank = new CentralBank();
-        BankTeller teller = new BankTeller(bank);
+        AdvancedSoftware teller = new AdvancedSoftware(bank);
         teller.createAccount("1245", "a1@hello.com", "testpassword", 500, false);
         assertNull( bank.getAccount("12466"));
         assertEquals(500, bank.getAccount("1245").getBalance());
@@ -31,7 +31,7 @@ public class AdvancedAPITest {
     @Test
     void closeAccountTest() {
         CentralBank bank = new CentralBank();
-        BankTeller teller = new BankTeller(bank);
+        AdvancedSoftware teller = new AdvancedSoftware(bank);
         teller.createAccount("1245", "a1@hello.com", "testpassword", 500, false);
         assertEquals("a1@hello.com", bank.getAccount("1245").getEmail());
         teller.closeAccount("1245");
