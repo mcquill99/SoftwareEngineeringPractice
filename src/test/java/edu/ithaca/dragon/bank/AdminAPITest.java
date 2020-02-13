@@ -11,9 +11,9 @@ public class AdminAPITest {
         CentralBank bank = new CentralBank();
         BankTeller teller = new BankTeller(bank);
         AdminSoftware admin = new AdminSoftware(bank);
-        teller.createAccount("11212", "a@b.com", "testingPassword", 500);
-        teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
-        teller.createAccount("test123", "a@b.com", "testpass", 1000);
+        teller.createAccount("11212", "a@b.com", "testingPassword", 500,false);
+        teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000,false);
+        teller.createAccount("test123", "a@b.com", "testpass", 1000,false);
 
         assertEquals(false, admin.getIsFrozen("11212"));
         assertEquals(false, admin.getIsFrozen("11BFWGG"));
@@ -64,9 +64,9 @@ public class AdminAPITest {
         BankTeller teller = new BankTeller(bank);
         AdminSoftware admin = new AdminSoftware(bank);
 
-        teller.createAccount("11212", "a@b.com", "testingPassword", 500);
-        teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
-        teller.createAccount("test123", "a@b.com", "testpass", 1000);
+        teller.createAccount("11212", "a@b.com", "testingPassword", 500,false);
+        teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000,false);
+        teller.createAccount("test123", "a@b.com", "testpass", 1000,false);
 
 
 
@@ -97,13 +97,13 @@ public class AdminAPITest {
         AdminSoftware admin = new AdminSoftware(bank);
 
         //multiple accounts
-        teller.createAccount("123","a@b.com", "testPass", 0.99);
+        teller.createAccount("123","a@b.com", "testPass", 0.99,false);
         assertEquals(0.99, admin.calcTotalAssets());
 
-        teller.createAccount("456","a@b.com", "testPass", 1500.57);
+        teller.createAccount("456","a@b.com", "testPass", 1500.57,false);
         assertEquals(1501.56, admin.calcTotalAssets());
 
-        teller.createAccount("789","a@b.com", "testPass", 100000.99);
+        teller.createAccount("789","a@b.com", "testPass", 100000.99,false);
         assertEquals(101502.55, admin.calcTotalAssets());
 
         //deposit
@@ -125,21 +125,21 @@ public class AdminAPITest {
         CentralBank bankAccount = new CentralBank();
         BankTeller teller = new BankTeller(bankAccount);
         AdminSoftware admin = new AdminSoftware(bankAccount);
-        teller.createAccount("11212", "a@b.com", "testingPassword", 500000);
-        teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 100000);
-        teller.createAccount("test123", "a@b.com", "testpass", 100000);
+        teller.createAccount("11212", "a@b.com", "testingPassword", 500000,false);
+        teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 100000,false);
+        teller.createAccount("test123", "a@b.com", "testpass", 100000,false);
 
-        teller.createAccount("12345", "a@b.com", "testingPassword", 500000);
-        teller.createAccount("98765", "tester@gmail.com", "singleLetter", 100000);
-        teller.createAccount("test321", "a@b.com", "testpass", 100000);
+        teller.createAccount("12345", "a@b.com", "testingPassword", 500000,false);
+        teller.createAccount("98765", "tester@gmail.com", "singleLetter", 100000,false);
+        teller.createAccount("test321", "a@b.com", "testpass", 100000,false);
 
-        teller.createAccount("a1", "a@b.com", "testingPassword", 100000);
-        teller.createAccount("a2", "tester@gmail.com", "singleLetter", 100000);
-        teller.createAccount("a3", "a@b.com", "testpass", 100000);
+        teller.createAccount("a1", "a@b.com", "testingPassword", 100000,false);
+        teller.createAccount("a2", "tester@gmail.com", "singleLetter", 100000,false);
+        teller.createAccount("a3", "a@b.com", "testpass", 100000,false);
 
-        teller.createAccount("a4", "a@b.com", "testingPassword", 100000);
-        teller.createAccount("a5", "tester@gmail.com", "singleLetter", 100000);
-        teller.createAccount("a6", "a@b.com", "testpass", 100000);
+        teller.createAccount("a4", "a@b.com", "testingPassword", 100000,false);
+        teller.createAccount("a5", "tester@gmail.com", "singleLetter", 100000,false);
+        teller.createAccount("a6", "a@b.com", "testpass", 100000,false);
 
         //test empty map of suspicious accounts
         assertEquals(true, admin.findAcctIdsWithSuspiciousActivity().isEmpty());

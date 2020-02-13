@@ -19,9 +19,15 @@ public class BankTeller extends ATM implements AdvancedAPI  {
      * @param startingBalance
      * return : none
      */
-    public void createAccount(String acctId, String email, String password, double startingBalance) {
-        BankAccount account = new BankAccount(acctId, email, password, startingBalance);
-        bank.addAccount(acctId, account);
+    public void createAccount(String acctId, String email, String password, double startingBalance, boolean isSavings) {
+        if(isSavings){
+            SavingsAccount account = new SavingsAccount(acctId, email, password, startingBalance, 5, 500);
+            bank.addAccount(acctId, account);
+        }
+        else{
+            BankAccount account = new CheckingAccount(acctId, email, password, startingBalance);
+            bank.addAccount(acctId, account);
+        }
 
     }
 

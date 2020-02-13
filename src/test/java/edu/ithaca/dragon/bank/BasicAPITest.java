@@ -12,8 +12,8 @@ public class BasicAPITest {
         ATM atm = new ATM(bank);
         BankTeller teller = new BankTeller(bank);
 
-        teller.createAccount("11212", "a@b.com", "testingPassword", 500);
-        teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000);
+        teller.createAccount("11212", "a@b.com", "testingPassword", 500,false);
+        teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000,false);
 
         assertFalse(atm.confirmCredentials("11212", "test"));
         assertFalse( atm.confirmCredentials("112", "testingPassword"));
@@ -30,7 +30,7 @@ public class BasicAPITest {
         CentralBank bank = new CentralBank();
         ATM atm = new ATM(bank);
         BankTeller teller = new BankTeller(bank);
-        teller.createAccount("test123", "a@b.com", "testpass", 1000);
+        teller.createAccount("test123", "a@b.com", "testpass", 1000,false);
         assertEquals(1000, atm.checkBalance("test123"));
         //different account names
         atm.withdraw("test123", 1);
@@ -40,10 +40,10 @@ public class BasicAPITest {
         atm.withdraw("test123", 748.53);
         assertEquals(0, atm.checkBalance("test123"));
 
-        teller.createAccount("test456", "b@a.com", "testpass", 3290.57);
+        teller.createAccount("test456", "b@a.com", "testpass", 3290.57,false);
         assertEquals(3290.57, atm.checkBalance("test456"));
 
-        teller.createAccount("test789", "b@a.com", "testpass", 999999999.99);
+        teller.createAccount("test789", "b@a.com", "testpass", 999999999.99,false);
         assertEquals(999999999.99, atm.checkBalance("test789"));
 
 
@@ -55,7 +55,7 @@ public class BasicAPITest {
         CentralBank bank = new CentralBank();
         ATM atm = new ATM(bank);
         BankTeller teller = new BankTeller(bank);
-        teller.createAccount("test123", "a@b.com", "testpass", 1000);
+        teller.createAccount("test123", "a@b.com", "testpass", 1000,false);
         assertEquals(1000, atm.checkBalance("test123"));
         //legal withdraws
         atm.withdraw("test123", 1);
@@ -81,7 +81,7 @@ public class BasicAPITest {
         CentralBank bank = new CentralBank();
         ATM atm = new ATM(bank);
         BankTeller teller = new BankTeller(bank);
-        teller.createAccount("test123", "a@b.com", "testpass", 1000);
+        teller.createAccount("test123", "a@b.com", "testpass", 1000, false);
         atm.deposit("test123", 100);
         assertEquals(1100, atm.checkBalance("test123"));
         atm.deposit("test123", 1000);
@@ -105,8 +105,8 @@ public class BasicAPITest {
         CentralBank bank = new CentralBank();
         ATM atm = new ATM(bank);
         BankTeller teller = new BankTeller(bank);
-        teller.createAccount("test1", "a@b.com", "testpass", 10000);
-        teller.createAccount("test2", "b@c.com", "testpass", 500);
+        teller.createAccount("test1", "a@b.com", "testpass", 10000,false);
+        teller.createAccount("test2", "b@c.com", "testpass", 500,false);
 
         assertEquals(10000, atm.checkBalance("test1"));
         atm.transfer("test1", "test2", 500);
@@ -142,8 +142,8 @@ public class BasicAPITest {
         CentralBank bank = new CentralBank();
         ATM atm = new ATM(bank);
         BankTeller teller = new BankTeller(bank);
-        teller.createAccount("123","a@b.com", "testPass", 1000);
-        teller.createAccount("456", "b@a.com", "testPass", 500);
+        teller.createAccount("123","a@b.com", "testPass", 1000,false);
+        teller.createAccount("456", "b@a.com", "testPass", 500,false);
         //none
         assertEquals("", atm.transactionHistory("123"));
         //deposit

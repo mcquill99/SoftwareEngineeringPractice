@@ -19,6 +19,7 @@ public class SavingsAccount extends BankAccount {
     /**
      * Compounds interest of the day and adds it to balance
      */
+    @Override
     public void compoundInterest(){
         double compounded = interest *  this.getBalance();
         this.deposit(compounded);

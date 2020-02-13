@@ -4,7 +4,7 @@ package edu.ithaca.dragon.bank;
 public interface AdvancedAPI extends BasicAPI {
 
 
-    public void createAccount(String acctId, String email, String password, double startingBalance);
+    public void createAccount(String acctId, String email, String password, double startingBalance, boolean isSavings);
 
     public void closeAccount(String acctId);
 }
