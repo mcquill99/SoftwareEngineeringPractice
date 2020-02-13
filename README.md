@@ -33,6 +33,6 @@ https://drive.google.com/file/d/1t4xpb56MMHm-fuJWn91dIArscbTCK7My/view?usp=shari
 To Change For Friday:
 ---------------------
 - [X] Update Class Diagram to reflect use of APIs - **Sean**
-- Update Naming of Classes to better reflect API
-- Change Account Structure to remove BankAccount objects in favor of CheckingAccounts
+-  [X] Update Naming of Classes to better reflect API
+- [X] Change Account Structure to remove BankAccount objects in favor of CheckingAccounts
 - [X] Update createAccount function to create an account of type checking or savings -- **Sean**
