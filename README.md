@@ -35,4 +35,4 @@ To Change For Friday:
 - [X] Update Class Diagram to reflect use of APIs - **Sean**
 - Update Naming of Classes to better reflect API
 - Change Account Structure to remove BankAccount objects in favor of CheckingAccounts
-- Update createAccount function to create an account of type checking or savings
+- [X] Update createAccount function to create an account of type checking or savings -- **Sean**
