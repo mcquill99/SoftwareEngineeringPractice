@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.bank;
 
-public class SavingsAccount extends BankAccount {
+public class SavingsAccount extends CheckingAccount {
     private double interest;
     private double withdrawLimit;
     /**

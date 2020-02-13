@@ -5,16 +5,18 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CentralBank  {
+public class CentralBank {
 
 
-    private Map<String, BankAccount>accountMap = new HashMap<>();
+    private Map<String, CheckingAccount>accountMap = new HashMap<>();
 
-    public BankAccount getAccount(String acctId){
+
+
+    public CheckingAccount getAccount(String acctId){
         return accountMap.get(acctId);
     }
 
-    public void addAccount(String acctId, BankAccount account){
+    public void addAccount(String acctId, CheckingAccount account){
         accountMap.put(acctId, account);
     }
 
@@ -24,7 +26,7 @@ public class CentralBank  {
 
     public double totalBalance(){
         double total = 0;
-        for(BankAccount account : accountMap.values()){
+        for(CheckingAccount account : accountMap.values()){
             total = total + account.getBalance();
         }
 
@@ -35,7 +37,7 @@ public class CentralBank  {
     public Collection<String> suspiciousAccounts(){
         ArrayList<String> suspiciousAccounts = new ArrayList<>();
 
-        for(BankAccount account : accountMap.values()){
+        for(CheckingAccount account : accountMap.values()){
             if(account.getIsSus()){
                 suspiciousAccounts.add(account.getAcctId());
             }

@@ -17,6 +17,8 @@ public class AdminSoftware  implements AdminAPI {
     public AdminSoftware(CentralBank bank){
         this.bank = bank;
     }
+
+
     public double calcTotalAssets() {
         return bank.totalBalance();
     }

@@ -1,9 +1,6 @@
 package edu.ithaca.dragon.bank;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class ATM implements BasicAPI{
+public class BankSoftware implements BasicAPI{
 
     //----------------- BasicAPI methods -------------------------//
 
@@ -11,7 +8,7 @@ public class ATM implements BasicAPI{
     public boolean isFrozen;
     protected CentralBank bank;
 
-    public ATM(CentralBank bank){
+    public BankSoftware(CentralBank bank){
         this.bank = bank;
     }
 
@@ -124,7 +121,7 @@ public class ATM implements BasicAPI{
      */
     public String transactionHistory(String acctId) {
 
-        BankAccount account = bank.getAccount(acctId);
+        CheckingAccount account = bank.getAccount(acctId);
         return account.transactionHistory();
     }
 }

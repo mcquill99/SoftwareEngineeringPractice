@@ -3,13 +3,13 @@ package edu.ithaca.dragon.bank;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AdminAPITest {
+public class AdminAPITest  {
 
 
     @Test
     void freezeTest() throws AccountFrozenException, InsufficientFundsException {
         CentralBank bank = new CentralBank();
-        BankTeller teller = new BankTeller(bank);
+        AdvancedSoftware teller = new AdvancedSoftware(bank);
         AdminSoftware admin = new AdminSoftware(bank);
         teller.createAccount("11212", "a@b.com", "testingPassword", 500,false);
         teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 1000,false);
@@ -61,7 +61,7 @@ public class AdminAPITest {
     @Test
     void unFreezeTest() throws AccountFrozenException{
         CentralBank bank = new CentralBank();
-        BankTeller teller = new BankTeller(bank);
+        AdvancedSoftware teller = new AdvancedSoftware(bank);
         AdminSoftware admin = new AdminSoftware(bank);
 
         teller.createAccount("11212", "a@b.com", "testingPassword", 500,false);
@@ -93,7 +93,7 @@ public class AdminAPITest {
     @Test
     void totalAssetTest() throws InsufficientFundsException, AccountFrozenException {
         CentralBank bank = new CentralBank();
-        BankTeller teller = new BankTeller(bank);
+        AdvancedSoftware teller = new AdvancedSoftware(bank);
         AdminSoftware admin = new AdminSoftware(bank);
 
         //multiple accounts
@@ -123,7 +123,7 @@ public class AdminAPITest {
     @Test
     void suspiciousActivityTest() throws InsufficientFundsException, AccountFrozenException {
         CentralBank bankAccount = new CentralBank();
-        BankTeller teller = new BankTeller(bankAccount);
+        AdvancedSoftware teller = new AdvancedSoftware(bankAccount);
         AdminSoftware admin = new AdminSoftware(bankAccount);
         teller.createAccount("11212", "a@b.com", "testingPassword", 500000,false);
         teller.createAccount("11BFWGG", "tester@gmail.com", "singleLetter", 100000,false);

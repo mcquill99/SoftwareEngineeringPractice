@@ -1,13 +1,11 @@
 package edu.ithaca.dragon.bank;
 
-import java.util.Collection;
-
-public class BankTeller extends ATM implements AdvancedAPI  {
+public class AdvancedSoftware extends BankSoftware implements AdvancedAPI  {
 
     //----------------- AdvancedAPI methods -------------------------//
 
 
-    public BankTeller(CentralBank bank){
+    public AdvancedSoftware(CentralBank bank){
         super(bank);
     }
 
@@ -25,7 +23,7 @@ public class BankTeller extends ATM implements AdvancedAPI  {
             bank.addAccount(acctId, account);
         }
         else{
-            BankAccount account = new CheckingAccount(acctId, email, password, startingBalance);
+            CheckingAccount account = new CheckingAccount(acctId, email, password, startingBalance);
             bank.addAccount(acctId, account);
         }
 
