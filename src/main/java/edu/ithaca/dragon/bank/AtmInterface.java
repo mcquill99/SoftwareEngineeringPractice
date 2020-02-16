@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.bank;
 
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class AtmInterface {
@@ -27,34 +28,55 @@ public class AtmInterface {
         System.out.println("Please enter action or help for options");
 
 
-        String action = read.next();
-               while (!action.equals("logout")) {
-                    String stuff = read.next();
+        String action = read.nextLine();
+
+            while (!action.equals("logout")) {
+                String stuff = read.nextLine();
 
                     if (stuff.equals("help")) {
-                        System.out.println("Your options are:" +
-                                "1. withdraw" +
-                                "2. deposit" +
-                                "3. transfer" +
-                                "4. logout");
+                        System.out.println("Your options are: " +
+                                "\n 1. withdraw " +
+                                "\n 2. deposit " +
+                                "\n 3. transfer " +
+                                "\n 4. logout \n ");
+                        System.out.println("Please enter action or logout");
+
                     }
 
                     if (stuff.equals("withdraw")) {
-                        System.out.println("Enter accountID and amount");
-                        bankSoftware.withdraw(read.next(), read.nextDouble());
-                        System.out.println("Withdraw Complete amount in account now is" + bankSoftware.checkBalance(read.next()));
+                        System.out.println("Enter accountID");
+                        String acctId = read.nextLine();
+                        System.out.println("Enter amount");
+                        double amount = read.nextDouble();
+                        bankSoftware.withdraw(acctId, amount);
+                        System.out.println("Withdraw Complete amount in account now is " + bankSoftware.checkBalance(acctId));
+                        System.out.println("Please enter action or logout");
                     }
 
                     if (stuff.equals("deposit")) {
-                        System.out.println("Enter accountID and amount");
-                        bankSoftware.deposit(read.next(), read.nextDouble());
-                        System.out.println("Deposit Complete, amount in account now is " + bankSoftware.checkBalance(read.next()));
+                        System.out.println("Enter accountID");
+                        String acctId = read.nextLine();
+                        System.out.println("Enter amount");
+                        double amount = read.nextDouble();
+                        bankSoftware.deposit(acctId, amount);
+                        System.out.println("Deposit Complete, amount in account now is " + bankSoftware.checkBalance(acctId));
+                        System.out.println("Please enter action or logout");
                     }
 
                     if (stuff.equals("transfer")) {
-                        System.out.println("Enter accountID to transfer from, accountID To transfer to and the amount");
-                        bankSoftware.transfer(read.next(), read.next(), read.nextDouble());
-                        System.out.println("Transfer Complete");
+                        System.out.println("Enter accountID to transfer from");
+                        String acctId = read.nextLine();
+                        System.out.println("Enter accountID To transfer to");
+                        String acctId2 = read.nextLine();
+                        System.out.println("Enter the amount");
+                        double amount = read.nextDouble();
+                        bankSoftware.transfer(acctId, acctId2, amount);
+                        System.out.println("Transfer Complete, amount in account is now" + bankSoftware.checkBalance(acctId));
+                        System.out.println("Please enter action or logout");
+                    }
+
+                    if(stuff.equals("logout")){
+                        break;
                     }
 
 
