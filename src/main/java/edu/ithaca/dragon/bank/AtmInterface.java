@@ -1,7 +1,6 @@
 package edu.ithaca.dragon.bank;
 
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class AtmInterface {
@@ -50,7 +49,8 @@ public class AtmInterface {
                                 "\n deposit " +
                                 "\n transfer " +
                                 "\n logout " +
-                                "\n check balance \n ");
+                                "\n check balance " +
+                                "\n history \n");
                         break;
                     case "withdraw":
                         System.out.println("Enter amount");
@@ -58,6 +58,7 @@ public class AtmInterface {
                         bankSoftware.withdraw(id, amount);
                         System.out.println("Withdraw Complete amount in account now is " + bankSoftware.checkBalance(id));
                         break;
+
 
                     case "deposit":
                         System.out.println("Enter amount");
@@ -77,10 +78,15 @@ public class AtmInterface {
                     case "check balance":
                         System.out.println("Your current balance is " + bankSoftware.checkBalance(id));
                         break;
+
+
                     case "logout":
                         System.out.println("Have a nice day!");
                         break;
 
+                    case "history":
+                        System.out.println("Here's a list of your transaction history " + bankSoftware.transactionHistory(id));
+                        break;
 
                     default:
                         System.out.println("Please enter a valid input");
