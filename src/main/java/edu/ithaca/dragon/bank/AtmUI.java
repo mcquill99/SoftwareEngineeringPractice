@@ -3,38 +3,35 @@ package edu.ithaca.dragon.bank;
 
 import java.util.Scanner;
 
-public class AtmInterface {
+public class AtmUI {
+    private BasicAPI atmAPI;
+    private Scanner read = new Scanner(System.in);
+    private String id, pass;
 
-    public static void main(String[] args){
+    public AtmUI(BasicAPI atmAPI){
+        this.atmAPI = atmAPI;
+    }
 
-        Scanner read = new Scanner(System.in);
-
-        CentralBank bank = new CentralBank();
-        BankSoftware bankSoftware = new BankSoftware(bank);
-        AdvancedSoftware teller = new AdvancedSoftware(bank);
-        AdminSoftware admin = new AdminSoftware(bank);
-
-        teller.createAccount("11212", "a@b.com", "testpassword", 500, false);
-        teller.createAccount("1234", "a215@gmail.com", "tester", 1000, false);
-        teller.createAccount("5678", "a@b.com", "pass", 1000, false);
-        admin.freezeAccount("5678");
-
-
-
+    public void loginPage(){
+        read.reset();
         System.out.println("Hello, Please log in with your ID and password");
-        String id = read.next();
-        String pass = read.next();
+        id = read.next();
+        pass = read.next();
 
-        while (!bankSoftware.confirmCredentials(id, pass)) {
+        while (!atmAPI.confirmCredentials(id, pass)) {
             System.out.println("Invalid login, try again");
             id = read.next();
             pass = read.next();
         }
 
+        loggedIn();
+    }
+
+    public void loggedIn(){
         read.useDelimiter("\\n");
         String action;
         double amount;
-        System.out.println("Your current balance is: " + bankSoftware.checkBalance(id));
+        System.out.println("Your current balance is: " + atmAPI.checkBalance(id));
 
 
         do {
@@ -48,23 +45,22 @@ public class AtmInterface {
                                 "\n withdraw " +
                                 "\n deposit " +
                                 "\n transfer " +
-                                "\n logout " +
-                                "\n check balance " +
-                                "\n history \n");
+                                "\n check balance" +
+                                "\n logout \n");
                         break;
                     case "withdraw":
                         System.out.println("Enter amount");
                         amount = read.nextDouble();
-                        bankSoftware.withdraw(id, amount);
-                        System.out.println("Withdraw Complete amount in account now is " + bankSoftware.checkBalance(id));
+                        atmAPI.withdraw(id, amount);
+                        System.out.println("Withdraw Complete amount in account now is " + atmAPI.checkBalance(id));
                         break;
 
 
                     case "deposit":
                         System.out.println("Enter amount");
                         amount = read.nextDouble();
-                        bankSoftware.deposit(id, amount);
-                        System.out.println("Deposit Complete, amount in account now is " + bankSoftware.checkBalance(id));
+                        atmAPI.deposit(id, amount);
+                        System.out.println("Deposit Complete, amount in account now is " + atmAPI.checkBalance(id));
                         break;
 
                     case "transfer":
@@ -72,20 +68,16 @@ public class AtmInterface {
                         String id2 = read.next();
                         System.out.println("Enter the amount");
                         amount = read.nextDouble();
-                        bankSoftware.transfer(id, id2, amount);
-                        System.out.println("Transfer Complete, amount in account is now" + bankSoftware.checkBalance(id));
+                        atmAPI.transfer(id, id2, amount);
+                        System.out.println("Transfer Complete, amount in account is now" + atmAPI.checkBalance(id));
 
                     case "check balance":
-                        System.out.println("Your current balance is " + bankSoftware.checkBalance(id));
+                        System.out.println("Your current balance is " + atmAPI.checkBalance(id));
                         break;
 
 
                     case "logout":
                         System.out.println("Have a nice day!");
-                        break;
-
-                    case "history":
-                        System.out.println("Here's a list of your transaction history " + bankSoftware.transactionHistory(id));
                         break;
 
                     default:
@@ -94,13 +86,17 @@ public class AtmInterface {
 
                 }
             }
-            catch(Exception e){
+            catch(AccountFrozenException e){
                 System.out.println(e.getMessage());
                 System.out.println("Please contact customer service at 1-888-555-1212 for further help");
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
             }
 
 
         } while (!action.equals("logout"));
+        loginPage();
 
     }
 }
