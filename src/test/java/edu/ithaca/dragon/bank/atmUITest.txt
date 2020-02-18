@@ -54,11 +54,14 @@ Test4: Transfer
         -1234
         -tester
     -type transfer
-    -enter invalid account to transfer to, and amount
+    -enter invalid account to transfer to B100
+        -Amount : 100
     -should say account not found
-    -enter valid account to transfer to and negative amount
+    -enter valid account to transfer to 11212
+       - invalid amount (-100)
     -should say amount must be valid
-    -enter valid account to transfer to (11212) and valid amount (100)
+    -enter valid account to transfer to 11212
+        -valid amount 100
     -should display amount in account is now 900
     -transfer to frozen account 5678 and enter valid amount
     -should display account is frozen
@@ -74,9 +77,11 @@ Test5: Account Frozen
     -type deposit
     -enter 500
     -should display account is frozen and cannot complete transaction, contact customer service and to type action
-    -withdraw 1000
+    -withdraw
+        -1000
     -account is frozen and choose other action
-    -transfer to account 11212 and amount 500
+    -transfer to account 11212
+        -amount 500
     -account is frozen and choose another action
     -type check balance, should display 1500
     -type logout, logout
