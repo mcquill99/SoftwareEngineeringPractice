@@ -1,0 +1,87 @@
+Test1: Withdrawing from a normal account + Testing for basic errors
+    -enter the credentials
+        -1234
+        -tester
+    -type help for full list of options
+    -type word not located in help (ie: jaidjsa) to see if it handles the wrong input
+    -type withdraw into the console and enter an amount higher than 1000
+    -have it tell you you're overdrawing
+    -type withdraw
+    -withdraw an amount less than 0
+    -have it tell you you cant withdraw a negative amount
+    -type withdraw
+    -withdraw an amount with more than 2 decimal places (ie: 4.394)
+    -have it give you an error for entering an incorrect value
+    -type withdraw again
+    -enter a valid value between 0 and 1000
+    -make sure the current balance displayed after is equal to 1000 - the amount you entered
+    -type check balance
+    -make sure the balance displayed is still correct
+    -type logout to log out
+
+Test2: Depositing into a normal account
+    -enter the credentials
+        -1234
+        -tester
+    -type deposit into the console
+    -enter an amount less than 0
+    -make sure it displays an error saying that is an invalid amount
+    -type deposit into the console
+    -enter an amount with more than 2 decimals (ie: 4.329)
+    -make sure it displays an error saying the amount is invalid
+    -type deposit into the console
+    -enter a valid amount > 0 (ie: 500)
+    -make sure the current balance displayed after the deposit is equal to 1000 + the amount you entered (ie: 1000 + 500 = 1500)
+    -type logout to log out
+
+Test3: Check Balance
+    -enter the credentials
+        -1234
+        -tester
+    -type check balance into the console
+    -make sure it displays $1000
+    -type deposit into the console
+    -enter 500
+    -type check balance into the console
+    -make sure it displays $1500
+    -type withdraw into the console
+    -enter 300.75
+    -make sure it displays $1199.25
+    -type logout to log out
+
+Test4: Transfer
+    -enter the credentials
+        -1234
+        -tester
+    -type transfer
+    -enter invalid account to transfer to B100
+        -Amount : 100
+    -should say account not found
+    -enter valid account to transfer to 11212
+       - invalid amount (-100)
+    -should say amount must be valid
+    -enter valid account to transfer to 11212
+        -valid amount 100
+    -should display amount in account is now 900
+    -transfer to frozen account 5678 and enter valid amount
+    -should display account is frozen
+    -amount in account should still be 900
+    -type logout and should display log in page
+
+Test5: Account Frozen
+    (No actions should work except log in, help, check balance and log out)
+
+    -enter credentials
+        -5678
+        -pass
+    -type deposit
+    -enter 500
+    -should display account is frozen and cannot complete transaction, contact customer service and to type action
+    -withdraw
+        -1000
+    -account is frozen and choose other action
+    -transfer to account 11212
+        -amount 500
+    -account is frozen and choose another action
+    -type check balance, should display 1500
+    -type logout, logout
