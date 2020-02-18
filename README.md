@@ -1,5 +1,5 @@
 # Software Engineering Practice: Bank Software
-## grading
+## Grading
 
 To Do | correct
 ---|---
