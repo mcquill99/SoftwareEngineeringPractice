@@ -34,3 +34,18 @@ Test2: Depositing into a normal account
     -make sure the current balance displayed after the deposit is equal to 1000 + the amount you entered (ie: 1000 + 500 = 1500)
     -type logout to log out
 
+Test3: Check Balance
+    -enter the credentials
+        -1234
+        -tester
+    -type check balance into the console
+    -make sure it displays $1000
+    -type deposit into the console
+    -enter 500
+    -type check balance into the console
+    -make sure it displays $1500
+    -type withdraw into the console
+    -enter 300.75
+    -make sure it displays $1199.25
+    -type logout to log out
+
