@@ -1,0 +1,36 @@
+Test1: Withdrawing from a normal account + Testing for basic errors
+    -enter the credentials
+        -1234
+        -tester
+    -type help for full list of options
+    -type word not located in help (ie: jaidjsa) to see if it handles the wrong input
+    -type withdraw into the console and enter an amount higher than 1000
+    -have it tell you you're overdrawing
+    -type withdraw
+    -withdraw an amount less than 0
+    -have it tell you you cant withdraw a negative amount
+    -type withdraw
+    -withdraw an amount with more than 2 decimal places (ie: 4.394)
+    -have it give you an error for entering an incorrect value
+    -type withdraw again
+    -enter a valid value between 0 and 1000
+    -make sure the current balance displayed after is equal to 1000 - the amount you entered
+    -type check balance
+    -make sure the balance displayed is still correct
+    -type logout to log out
+
+Test2: Depositing into a normal account
+    -enter the credentials
+        -1234
+        -tester
+    -type deposit into the console
+    -enter an amount less than 0
+    -make sure it displays an error saying that is an invalid amount
+    -type deposit into the console
+    -enter an amount with more than 2 decimals (ie: 4.329)
+    -make sure it displays an error saying the amount is invalid
+    -type deposit into the console
+    -enter a valid amount > 0 (ie: 500)
+    -make sure the current balance displayed after the deposit is equal to 1000 + the amount you entered (ie: 1000 + 500 = 1500)
+    -type logout to log out
+
