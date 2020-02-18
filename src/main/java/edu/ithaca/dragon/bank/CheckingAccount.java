@@ -54,6 +54,7 @@ public class CheckingAccount {
         }
         if (balance >= amount && amount >= 0) {
             balance -= amount;
+            balance = Math.round(balance * 100.0) / 100.0;
 
             transactionHistory.add("Withdrew $" + amount);
         }
@@ -75,6 +76,7 @@ public class CheckingAccount {
             isSus = true;
         }
         balance += amount;
+        balance = Math.round(balance * 100.0) / 100.0;
 
         transactionHistory.add("Deposited $" + amount);
     }
