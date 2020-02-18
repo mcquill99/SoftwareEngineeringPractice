@@ -1,4 +1,4 @@
-# Software Engineering Practice: Bank Software with APIs for an ATM, Teller, and Admin Sfotware, Along with an ATM Text UI
+# Software Engineering Practice: Bank Software
 ## grading
 
 To Do | correct
