@@ -49,3 +49,34 @@ Test3: Check Balance
     -make sure it displays $1199.25
     -type logout to log out
 
+Test4: Transfer
+    -enter the credentials
+        -1234
+        -tester
+    -type transfer
+    -enter invalid account to transfer to, and amount
+    -should say account not found
+    -enter valid account to transfer to and negative amount
+    -should say amount must be valid
+    -enter valid account to transfer to (11212) and valid amount (100)
+    -should display amount in account is now 900
+    -transfer to frozen account 5678 and enter valid amount
+    -should display account is frozen
+    -amount in account should still be 900
+    -type logout and should display log in page
+
+Test5: Account Frozen
+    (No actions should work except log in, help, check balance and log out)
+
+    -enter credentials
+        -5678
+        -pass
+    -type deposit
+    -enter 500
+    -should display account is frozen and cannot complete transaction, contact customer service and to type action
+    -withdraw 1000
+    -account is frozen and choose other action
+    -transfer to account 11212 and amount 500
+    -account is frozen and choose another action
+    -type check balance, should display 1500
+    -type logout, logout
