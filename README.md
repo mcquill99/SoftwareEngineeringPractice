@@ -35,9 +35,3 @@ State Diagram:
 https://drive.google.com/file/d/1txTvBdI8cqVo9HsQ4iZvYDFXs8ioH924/view?usp=sharing
 
 
-To Change For Friday:
----------------------
-- [X] Update Class Diagram to reflect use of APIs - **Sean**
--  [X] Update Naming of Classes to better reflect API **Rup**
-- [X] Change Account Structure to remove BankAccount objects in favor of CheckingAccounts **Rup**
-- [X] Update createAccount function to create an account of type checking or savings -- **Sean**
